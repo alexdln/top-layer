@@ -18,6 +18,6 @@ export default [
     ...tseslint.configs.recommended,
     eslintPluginPrettierRecommended,
     {
-        ignores: ["**/node_modules/**", "**/dist/**", "**/.next/**"],
+        ignores: ["**/node_modules/**", "**/dist/**", "**/.next/**", "**/*.d.ts"],
     },
 ];

@@ -2,10 +2,52 @@
   "name": "top-layer",
   "version": "1.0.0",
   "description": "",
+  "files": [
+    "dist",
+    "index.d.ts",
+    "dialog/index.d.ts",
+    "dialog/hooks.d.ts",
+    "dialog/types.d.ts",
+    "toaster/index.d.ts",
+    "toaster/hooks.d.ts",
+    "toaster/types.d.ts"
+  ],
+  "main": "./dist/index.js",
+  "typings": "./index.d.ts",
   "scripts": {
     "build": "tsc",
     "lint": "eslint .",
     "prepare": "husky"
+  },
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./dialog": {
+      "types": "./dialog/index.d.ts",
+      "default": "./dist/dialog/index.js"
+    },
+    "./toaster": {
+      "types": "./toaster/index.d.ts",
+      "default": "./dist/toaster/index.js"
+    },
+    "./dialog/hooks": {
+      "types": "./dialog/hooks.d.ts",
+      "default": "./dist/dialog/hooks.js"
+    },
+    "./toaster/hooks": {
+      "types": "./toaster/hooks.d.ts",
+      "default": "./dist/toaster/hooks.js"
+    },
+    "./dialog/types": {
+      "types": "./dialog/types.d.ts",
+      "default": "./dist/dialog/types.js"
+    },
+    "./toaster/types": {
+      "types": "./toaster/types.d.ts",
+      "default": "./dist/toaster/types.js"
+    }
   },
   "repository": {
     "type": "git",
@@ -17,21 +59,20 @@
     "url": "https://github.com/vordgi/"
   },
   "devDependencies": {
-    "@types/react": "18.3.3",
-    "@types/react-dom": "18.3.0",
+    "@types/react": "19.0.2",
+    "@types/react-dom": "19.0.2",
     "eslint": "9.13.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-prettier": "5.2.1",
     "husky": "9.1.6",
     "prettier": "3.3.3",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "typescript-eslint": "8.11.0"
   },
   "peerDependencies": {
-    "next": ">= 13.0.0",
-    "react": ">= 18.3.0",
-    "react-dom": ">= 18.3.0"
+    "react": ">= 17.0.0",
+    "react-dom": ">= 17.0.0"
   },
   "license": "MIT"
 }
