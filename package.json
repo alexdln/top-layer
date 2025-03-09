@@ -1,6 +1,6 @@
 {
   "name": "top-layer",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Library for working with modals and notifications in a separate isolated layer without application rerenders.",
   "files": [
     "dist",
@@ -41,6 +41,14 @@
       "types": "./dialog/hooks.d.ts",
       "default": "./dist/dialog/hooks.js"
     },
+    "./dialog/utils": {
+      "types": "./dialog/utils.d.ts",
+      "default": "./dist/dialog/utils.js"
+    },
+    "./dialog/constants": {
+      "types": "./dialog/constants.d.ts",
+      "default": "./dist/dialog/constants.js"
+    },
     "./dialog/dialog": {
       "types": "./dialog/dialog.d.ts",
       "default": "./dist/dialog/dialog.js"
@@ -48,6 +56,14 @@
     "./toaster/hooks": {
       "types": "./toaster/hooks.d.ts",
       "default": "./dist/toaster/hooks.js"
+    },
+    "./toaster/utils": {
+      "types": "./toaster/utils.d.ts",
+      "default": "./dist/toaster/utils.js"
+    },
+    "./toaster/constants": {
+      "types": "./toaster/constants.d.ts",
+      "default": "./dist/toaster/constants.js"
     },
     "./dialog/types": {
       "types": "./dialog/types.d.ts",
