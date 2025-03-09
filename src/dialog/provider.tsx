@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 
 import { DialogContext, RegisterDialogContext } from "./contexts";
 import { DialogConfiguration, DialogInfo } from "./types";
+import { HIDE_DIALOG_EVENT, SHOW_DIALOG_EVENT } from "./constants";
 
 export type DialogsProviderProps = {
     children: React.ReactNode;
@@ -70,6 +71,26 @@ export const DialogsProvider: React.FC<DialogsProviderProps> = ({ children, dial
         },
         [close],
     );
+
+    useEffect(() => {
+        const handler = (event: CustomEvent<{ id: string; data: any }>) => {
+            const { id, data } = event.detail;
+            open(id, data);
+        };
+        document.addEventListener(SHOW_DIALOG_EVENT, handler as EventListener);
+
+        return () => document.removeEventListener(SHOW_DIALOG_EVENT, handler as EventListener);
+    }, [open]);
+
+    useEffect(() => {
+        const handler = (event: CustomEvent<{ id: string }>) => {
+            const { id } = event.detail;
+            close(id);
+        };
+        document.addEventListener(HIDE_DIALOG_EVENT, handler as EventListener);
+
+        return () => document.removeEventListener(HIDE_DIALOG_EVENT, handler as EventListener);
+    }, [close]);
 
     return (
         <RegisterDialogContext.Provider value={{ register, unregister, remove }}>
