@@ -1,16 +1,20 @@
 {
   "name": "top-layer",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.1.0",
+  "description": "Library for working with modals and notifications in a separate isolated layer without application rerenders.",
   "files": [
     "dist",
     "index.d.ts",
     "dialog/index.d.ts",
     "dialog/hooks.d.ts",
+    "dialog/utils.d.ts",
+    "dialog/constants.d.ts",
     "dialog/types.d.ts",
     "dialog/dialog.d.ts",
     "toaster/index.d.ts",
     "toaster/hooks.d.ts",
+    "toaster/utils.d.ts",
+    "toaster/constants.d.ts",
     "toaster/types.d.ts"
   ],
   "main": "./dist/index.js",
