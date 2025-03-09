@@ -1,16 +1,20 @@
 {
   "name": "top-layer",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.1.0",
+  "description": "Library for working with modals and notifications in a separate isolated layer without application rerenders.",
   "files": [
     "dist",
     "index.d.ts",
     "dialog/index.d.ts",
     "dialog/hooks.d.ts",
+    "dialog/utils.d.ts",
+    "dialog/constants.d.ts",
     "dialog/types.d.ts",
     "dialog/dialog.d.ts",
     "toaster/index.d.ts",
     "toaster/hooks.d.ts",
+    "toaster/utils.d.ts",
+    "toaster/constants.d.ts",
     "toaster/types.d.ts"
   ],
   "main": "./dist/index.js",
@@ -73,11 +77,13 @@
     "prettier": "3.3.3",
     "react": "19.0.0",
     "react-dom": "19.0.0",
+    "typescript": "5.8.2",
     "typescript-eslint": "8.11.0"
   },
   "peerDependencies": {
     "react": ">= 17.0.0",
     "react-dom": ">= 17.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "packageManager": "pnpm@9.7.0+sha512.dc09430156b427f5ecfc79888899e1c39d2d690f004be70e05230b72cb173d96839587545d09429b55ac3c429c801b4dc3c0e002f653830a420fa2dd4e3cf9cf"
 }

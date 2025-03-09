@@ -94,8 +94,10 @@ const { openDialog } = useDialogs();
 </button>;
 ```
 
-The first argument must be the `id` of the dialog, and the second - the data that will be passed to the dialog handlers (
-Read more in the section [`useDialogs`](#usedialogs))
+The first argument must be the `id` of the dialog, and the second - the data that will be passed to the dialog handlers (*Read more in the section [`useDialogs`](#usedialogs)*)
+
+> [!NOTE]
+> It is recommended to open and close dialogs through special hooks. However, in some cases you may need to use them outside the React runtime (for example inside `redux saga`). For these purposes, you can use the standalone methods [`openDialog`](#opendialog) and [`closeDialog`](#closedialog).
 
 ### Notifications
 
@@ -155,6 +157,9 @@ showToast("data-loader", {
 
 > [!NOTE]
 > The data passed when calling `showToast` will be passed as props to the component. Read more in the [`useToasts`](#usetoasts) section.
+
+> [!NOTE]
+> It is recommended to open and close notifications through special hooks. However, in some cases you may need to use them outside the React runtime (for example inside `redux saga`). For these purposes, you can use the standalone methods [`showToast`](#showtoast) and [`hideToast`](#hidetoast).
 
 ## API
 
@@ -274,6 +279,40 @@ const { openDialog, closeDialog } = useDialogAction('modal');
 
 `closeDialog` - function for closing a dialog box.
 
+### openDialog
+
+Works the same as `openDialog` returned from [`useDialogs`](#usedialogs)
+
+```tsx
+import { openDialog } from "top-layer/dialog";
+// ...
+<button onClick={() => openDialog("alert", "Some Alert Message")}>
+  Show Alert
+</button>
+```
+
+**Arguments**
+
+- `id` - id of the dialog that needs to be opened;
+
+- `data` - data that needs to be transferred to the dialog box.
+
+### closeDialog
+
+Works the same as `closeDialog` returned from [`useDialogs`](#usedialogs)
+
+```tsx
+import { closeDialog } from "top-layer/dialog";
+// ...
+<button onClick={() => closeDialog("modal")}>
+  Close Modal
+</button>
+```
+
+**Arguments**
+
+- `id` - id of the dialog that needs to be closed;
+
 ### useToasts
 
 Universal hook for working with multiple toasts
@@ -339,6 +378,42 @@ const { showToast, hideToast } = useToastAction("invalid-arg");
 > Each dialog is a separate layer, you can. If you do not want to show a toast on top of dialogs, use `root`, if only on specific dialogs, pass an array of `id` of these dialogs.
 
 `hideToast` - function for hiding toasts.
+
+### showToast
+
+Works the same as `showToast` returned from [`useToasts`](#usetoasts)
+
+```tsx
+import { showToast } from "top-layer/toaster";
+// ...
+<button onClick={() => showToast("invalid-arg", { message: "Invalid argument", type: 'error' })}>
+  Show Toast
+</button>
+```
+
+**Arguments**
+
+- `id` - toast id, when called again with the same id - the old one will be hidden and the new one will be shown;
+
+- `data` - data that needs to be passed to your component [`Toast`](#toasts);
+
+- `layers` - layers on which toasts should be displayed.
+
+### hideToast
+
+Works the same as `hideToast` returned from [`useToasts`](#usetoasts)
+
+```tsx
+import { hideToast } from "top-layer/toaster";
+// ...
+<button onClick={() => hideToast("invalid-arg")}>
+  Hide Toast
+</button>
+```
+
+**Arguments**
+
+- `id` - toast id to hide;
 
 ## Additional
 

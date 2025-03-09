@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 
 import { type StoredToast, type ToasterLayerConfiguration } from "./types";
 import { ToasterLayerContext, RegisterToasterLayerContext } from "./contexts";
 import { ToasterLayer } from "./toaster-layer";
+import { HIDE_TOAST_EVENT, SHOW_TOAST_EVENT } from "./constants";
 
 export type ToasterProviderProps = {
     children: React.ReactNode;
@@ -75,6 +76,28 @@ export const ToasterProvider: React.FC<ToasterProviderProps> = ({ children, toas
         },
         [Toast, hide],
     );
+
+    useEffect(() => {
+        const handler = (event: CustomEvent<{ id: string; data: any; layers?: string[] }>) => {
+            const { id, data, layers } = event.detail;
+            show(id, data, layers);
+        };
+
+        document.addEventListener(SHOW_TOAST_EVENT, handler as EventListener);
+
+        return () => document.removeEventListener(SHOW_TOAST_EVENT, handler as EventListener);
+    }, [show]);
+
+    useEffect(() => {
+        const handler = (event: CustomEvent<{ id: string }>) => {
+            const { id } = event.detail;
+            hide(id);
+        };
+
+        document.addEventListener(HIDE_TOAST_EVENT, handler as EventListener);
+
+        return () => document.removeEventListener(HIDE_TOAST_EVENT, handler as EventListener);
+    }, [hide]);
 
     return (
         <RegisterToasterLayerContext.Provider value={{ register, unregister, activate, deactivate }}>
