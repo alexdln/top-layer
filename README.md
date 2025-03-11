@@ -16,7 +16,7 @@ npm i top-layer
 
 For the package to work, the application must be wrapped in a provider
 
-```tsx
+```tsx filename="layout.tsx"
 import { TopLayerProvider } from "top-layer";
 
 import { ShareDialog } from "@src/components/share-dialog";
@@ -48,9 +48,11 @@ As already mentioned, the library creates an interface for working with dialogs 
 
 Since the library is not a UI library, but only creates the necessary API, you need to create dialogs.
 
+<AlertDialogAction title="Open Alert Dialog"></AlertDialogAction>
+
 Example of a basic dialog:
 
-```tsx
+```tsx filename="components/alert-dialog.tsx"
 "use client";
 
 import { useState } from "react";
@@ -84,7 +86,7 @@ Where `Dialog` is the component responsible for all the logic.
 
 Then you can open the dialog anywhere via the appropriate hook:
 
-```tsx
+```tsx filename="components/block.tsx"
 import { useDialogs } from "top-layer/dialog";
 // ...
 const { openDialog } = useDialogs();
@@ -103,13 +105,17 @@ The first argument must be the `id` of the dialog, and the second - the data tha
 
 For toasts to work in [`TopLayerProvider`](#toplayerprovider) you need to pass your `Toast` component.
 
+<ToastAction message="Success Test" type="success" title="Success Toast"></ToastAction>
+<ToastAction message="Error Test" type="error" title="Error Toast"></ToastAction>
+<ToastAction message="Warning Test" type="warning" title="Warning Toast"></ToastAction>
+<ToastAction message="Neutral Test" type="neutral" title="Neutral Toast"></ToastAction>
+
 An example of such a `Toast` component:
 
-```tsx
+```tsx filename="components/toast.tsx"
 "use client";
 
 import cn from "classnames";
-import { useEffect, useRef } from "react";
 
 interface ToastProps {
   message: string;
@@ -131,7 +137,7 @@ export const Toast: React.FC<ToastProps> = ({
 }) => (
   <div
     className={cn(
-      "fixed top-4 right-4 py-2 px-4 rounded-md flex items-center group",
+      "fixed top-4 right-4 py-2 px-4 rounded-md flex items-center",
       TYPES[type]
     )}
     onClick={closeHandler}
@@ -143,7 +149,7 @@ export const Toast: React.FC<ToastProps> = ({
 
 **Show toast**
 
-```tsx
+```tsx filename="components/block.tsx"
 import { useToasts } from "top-layer/toaster";
 
 // ...
@@ -170,7 +176,7 @@ Main package provider. It must be added above the part of the application where 
 > [!TIP]
 > TopLayerProvider never causes rerenders, so it is recommended to install it over the entire application.
 
-```tsx
+```tsx filename="layout.tsx"
 import { TopLayerProvider } from "top-layer";
 
 import { ShareDialog } from "@src/components/share-dialog";
@@ -223,7 +229,7 @@ The component inherits all props from the `dialog` element
 
 Universal hook for working with multiple dialogs
 
-```tsx
+```tsx filename="components/block.tsx"
 import { useDialogs } from "top-layer/dialog";
 // ...
 const { openDialog, closeDialog } = useDialogs();
@@ -253,7 +259,7 @@ const { openDialog, closeDialog } = useDialogs();
 
 Works the same as [`useDialogs`](#usedialogs), but is intended for a single window
 
-```tsx
+```tsx filename="components/block.tsx"
 import { useDialogAction } from "top-layer/dialog";
 // ...
 const { openDialog, closeDialog } = useDialogAction('modal');
@@ -283,7 +289,7 @@ const { openDialog, closeDialog } = useDialogAction('modal');
 
 Works the same as `openDialog` returned from [`useDialogs`](#usedialogs)
 
-```tsx
+```tsx filename="components/block.tsx"
 import { openDialog } from "top-layer/dialog";
 // ...
 <button onClick={() => openDialog("alert", "Some Alert Message")}>
@@ -301,7 +307,7 @@ import { openDialog } from "top-layer/dialog";
 
 Works the same as `closeDialog` returned from [`useDialogs`](#usedialogs)
 
-```tsx
+```tsx filename="components/block.tsx"
 import { closeDialog } from "top-layer/dialog";
 // ...
 <button onClick={() => closeDialog("modal")}>
@@ -317,7 +323,12 @@ import { closeDialog } from "top-layer/dialog";
 
 Universal hook for working with multiple toasts
 
-```tsx
+<ToastAction message="Success Test" type="success">Success Toast</ToastAction>
+<ToastAction message="Error Test" type="error">Error Toast</ToastAction>
+<ToastAction message="Warning Test" type="warning">Warning Toast</ToastAction>
+<ToastAction message="Neutral Test" type="neutral">Neutral Toast</ToastAction>
+
+```tsx filename="components/block.tsx"
 import { useToasts } from "top-layer/toaster";
 // ...
 const { showToast, hideToast } = useToasts();
@@ -352,7 +363,7 @@ const { showToast, hideToast } = useToasts();
 
 Hook for working with a specific toast
 
-```tsx
+```tsx filename="components/block.tsx"
 import { useToastAction } from "top-layer/toaster";
 // ...
 const { showToast, hideToast } = useToastAction("invalid-arg");
@@ -383,7 +394,7 @@ const { showToast, hideToast } = useToastAction("invalid-arg");
 
 Works the same as `showToast` returned from [`useToasts`](#usetoasts)
 
-```tsx
+```tsx filename="components/block.tsx"
 import { showToast } from "top-layer/toaster";
 // ...
 <button onClick={() => showToast("invalid-arg", { message: "Invalid argument", type: 'error' })}>
@@ -403,7 +414,7 @@ import { showToast } from "top-layer/toaster";
 
 Works the same as `hideToast` returned from [`useToasts`](#usetoasts)
 
-```tsx
+```tsx filename="components/block.tsx"
 import { hideToast } from "top-layer/toaster";
 // ...
 <button onClick={() => hideToast("invalid-arg")}>
