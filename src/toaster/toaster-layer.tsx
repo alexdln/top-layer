@@ -30,7 +30,7 @@ export const ToasterLayer: React.FC<ToasterLayerProps> = ({ id = "root" }) => {
     useEffect(register);
 
     return (
-        <ul>
+        <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {toasts.map(({ id, toast }) => (
                 <li key={id}>{toast}</li>
             ))}
