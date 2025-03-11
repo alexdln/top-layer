@@ -1,6 +1,6 @@
 {
   "name": "top-layer",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Library for working with modals and notifications in a separate isolated layer without application rerenders.",
   "files": [
     "dist",
