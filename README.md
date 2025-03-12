@@ -1,4 +1,15 @@
+[robin.title]: # "Top Layer"
+[robin.description]: # "Top Layer is a library for working with pop-up windows in a separate isolated layer without application rerenders"
+
 # top-layer
+
+<!---robin-->
+
+Read the documentation in a convenient interface at [nimpl.dev/docs/top-layer](https://nimpl.dev/docs/top-layer)
+
+<!---/robin-->
+
+<PackageLinks npmName="top-layer" githubName="top-layer" />
 
 Top Layer is a library for working with pop-up windows in a separate isolated layer without application rerenders.
 
@@ -38,7 +49,8 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 export default RootLayout;
 ```
 
-`TopLayerProvider` never causes rerenders, so it is recommended to install it over the entire application.
+> [!NOTE]
+> `TopLayerProvider` never causes rerenders, so it is recommended to install it over the entire application.
 
 ## Usage
 
