@@ -64,34 +64,117 @@ Since the library is not a UI library, but only creates the necessary API, you n
 
 Example of a basic dialog:
 
-```tsx filename="components/alert-dialog.tsx"
+```tsx filename="components/alert-dialog/index.tsx" switcher tab="tsx [tailwind]"
 "use client";
 
 import { useState } from "react";
-import { useDialogAction, Dialog } from "top-layer/dialog";
+import { useDialogAction } from "top-layer/dialog/hooks";
+import { Dialog } from "top-layer/dialog";
+import { ToastAction } from "../toast-action";
+
+import "./alert-dialog.scss";
 
 export const AlertDialog: React.FC = () => {
-  const [state, setState] = useState<string | null>(null);
-  const { closeDialog } = useDialogAction("alert");
+    const [state, setState] = useState<string | null>(null);
+    const { closeDialog } = useDialogAction("alert");
 
-  return (
-    <Dialog
-      className="bg-transparent w-full h-full p-4 m-0 max-w-none max-h-none open:grid items-center"
-      id="alert"
-      blockOverflow
-      onOpen={setState}
-      onClose={() => setState(null)}
-    >
-      <div
-        className="fixed left-0 top-0 w-full h-full bg-slate-950/20 backdrop-blur-[2px]"
-        onClick={closeDialog}
-      />
-      <div className="mx-auto relative p-4 bg-slate-900 rounded-2xl w-full max-w-5xl shadow-neo-sm z-10">
-        <p className="text-xl font-semibold">{state}</p>
-      </div>
-    </Dialog>
-  );
+    return (
+        <Dialog
+            className="items-center bg-transparent w-full h-full p-16 m-0 max-w-none max-h-none border-0 open:grid"
+            id="alert"
+            blockOverflow
+            onOpen={setState}
+            onClose={() => setState(null)}
+        >
+            <div
+                className="fixed left-0 top-0 w-full h-full bg-slate-950/20 backdrop-blur-[2px]"
+                onClick={closeDialog}
+            />
+            <div className="relative m-auto p-16 bg-slate-900 rounded-2xl w-full max-w-5xl z-10">
+                <p>{state}</p>
+                <ToastAction type="neutral" message="Root Toast" title="Show Toast in Root" />
+                <ToastAction type="neutral" message="Dialog Toast" layers={['alert']} title="Show Toast in Dialog" />
+                <ToastAction type="neutral" message="Both Toast" layers={['root', 'alert']} title="Show Toast in Both" />
+            </div>
+        </Dialog>
+    );
 };
+```
+
+```tsx filename="components/alert-dialog/index.tsx" switcher tab="tsx [css]"
+"use client";
+
+import { useState } from "react";
+import { useDialogAction } from "top-layer/dialog/hooks";
+import { Dialog } from "top-layer/dialog";
+import { ToastAction } from "../toast-action";
+
+import "./alert-dialog.scss";
+
+export const AlertDialog: React.FC = () => {
+    const [state, setState] = useState<string | null>(null);
+    const { closeDialog } = useDialogAction("alert");
+
+    return (
+        <Dialog
+            className="alert-dialog"
+            id="alert"
+            blockOverflow
+            onOpen={setState}
+            onClose={() => setState(null)}
+        >
+            <div
+                className="alert-dialog-backdrop"
+                onClick={closeDialog}
+            />
+            <div className="alert-dialog-content">
+                <p>{state}</p>
+                <ToastAction type="neutral" message="Root Toast" title="Show Toast in Root" />
+                <ToastAction type="neutral" message="Dialog Toast" layers={['alert']} title="Show Toast in Dialog" />
+                <ToastAction type="neutral" message="Both Toast" layers={['root', 'alert']} title="Show Toast in Both" />
+            </div>
+        </Dialog>
+    );
+};
+```
+
+```scss filename="components/alert-dialog/alert-dialog.scss" switcher tab="css"
+.alert-dialog {
+    align-items: center;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+    margin: 0;
+    max-width: none;
+    max-height: none;
+    border: 0;
+
+    &[open] {
+        display: grid;
+    }
+}
+
+.alert-dialog-backdrop {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(21, 21, 21, 0.2);
+    backdrop-filter: blur(2px);
+}
+
+.alert-dialog-content {
+    margin: auto;
+    position: relative;
+    padding: 16px;
+    background-color: #151515;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 560px;
+    z-index: 10;
+}
 ```
 
 Where `Dialog` is the component responsible for all the logic.
@@ -103,8 +186,8 @@ import { useDialogs } from "top-layer/dialog";
 // ...
 const { openDialog } = useDialogs();
 // ...
-<button onClick={() => openDialog("alert", "Some Alert Message")}>
-  Show Alert
+<button onClick={() => openDialog("alert", "Base Alert Dialog")}>
+  Open Alert Dialog
 </button>;
 ```
 
@@ -124,12 +207,14 @@ For toasts to work in [`TopLayerProvider`](#toplayerprovider) you need to pass y
 
 An example of such a `Toast` component:
 
-```tsx filename="components/toast.tsx"
+```tsx filename="components/toast/index.tsx" switcher tab="tsx [tailwind]"
 "use client";
 
-import cn from "classnames";
+import { useEffect } from "react";
 
-interface ToastProps {
+import "./toast.scss";
+
+export interface ToastProps {
   message: string;
   type: keyof typeof TYPES;
   closeHandler: () => void;
@@ -146,17 +231,101 @@ export const Toast: React.FC<ToastProps> = ({
   message,
   type = "neutral",
   closeHandler,
-}) => (
-  <div
-    className={cn(
-      "fixed top-4 right-4 py-2 px-4 rounded-md flex items-center",
-      TYPES[type]
-    )}
-    onClick={closeHandler}
-  >
-    {message}
-  </div>
-);
+}) => {
+  useEffect(() => {
+    const timer = setTimeout(closeHandler, 3000);
+    
+    return () => clearTimeout(timer);
+  }, [closeHandler]);
+
+  return (
+    <div
+      className={cn(
+        "fixed bottom-16 left-1/2 -translateX-1/2 py-8 px-16 rounded-md flex items-center justify-center z-100 w-3xl max-w-full",
+        TYPES[type]
+      )}
+      onClick={closeHandler}
+    >
+      {message}
+    </div>
+  )
+};
+```
+
+```tsx filename="components/toast/index.tsx" switcher tab="tsx [css]"
+"use client";
+
+import { useEffect } from "react";
+
+import "./toast.scss";
+
+export interface ToastProps {
+  message: string;
+  type: keyof typeof TYPES;
+  closeHandler: () => void;
+}
+
+const TYPES = {
+  success: "toast_success",
+  warning: "toast_warning",
+  error: "toast_error",
+  neutral: "toast_neutral",
+};
+
+export const Toast: React.FC<ToastProps> = ({
+  message,
+  type = "neutral",
+  closeHandler,
+}) => {
+  useEffect(() => {
+    const timer = setTimeout(closeHandler, 3000);
+    
+    return () => clearTimeout(timer);
+  }, [closeHandler]);
+
+  return (
+    <div
+      className={`toast ${TYPES[type]}`}
+      onClick={closeHandler}
+    >
+      {message}
+    </div>
+  )
+};
+```
+
+```tsx filename="components/toast/toast.tsx" switcher tab="css"
+.toast {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  min-width: 300px;
+  max-width: 100%;
+  text-align: center;
+}
+
+.toast_success {
+  background-color: #008000;
+}
+
+.toast_warning {
+  background-color: #ffa500;
+}
+
+.toast_error {
+  background-color: #ff0000;
+}
+
+.toast_neutral {
+  background-color: #808080;
+}
 ```
 
 **Show toast**
@@ -168,9 +337,9 @@ import { useToasts } from "top-layer/toaster";
 const { showToast } = useToasts();
 // ...
 showToast("data-loader", {
-  message: "Can't load data. Please try again",
-  type: "warning",
-});
+  message: "Success Test",
+  type: "success",
+}, ['root']);
 ```
 
 > [!NOTE]
