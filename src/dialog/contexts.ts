@@ -1,11 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext } from "react";
 import { DialogConfiguration } from "./types";
 
-export type DialogContextType = { open(id: string, data: any): void; close(id: string): void };
+export type DialogContextType<OpenData = unknown, CloseData = unknown> = {
+    open(id: string, data?: OpenData): void;
+    close(id: string, data?: CloseData): void;
+};
 
-export type RegisterDialogContextType = {
-    register(node: HTMLDialogElement, dialogConfiguration: DialogConfiguration<any>): void;
+export type RegisterDialogContextType<OpenData = unknown, CloseData = unknown> = {
+    register(node: HTMLDialogElement, dialogConfiguration: DialogConfiguration<OpenData, CloseData>): void;
     unregister(node: HTMLDialogElement): void;
     remove(id: string): void;
 };
