@@ -3,8 +3,8 @@
 
 import React, { useCallback, useEffect, useRef } from "react";
 
+import { type DialogConfiguration, type DialogInfo } from "./types";
 import { DialogContext, RegisterDialogContext } from "./contexts";
-import { DialogConfiguration, DialogInfo } from "./types";
 import { OPEN_DIALOG_EVENT, CLOSE_DIALOG_EVENT } from "./constants";
 
 export type DialogsProviderProps = {

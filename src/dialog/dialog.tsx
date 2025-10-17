@@ -25,10 +25,10 @@ export const Dialog: React.FC<DialogProps> = ({ id, onClose, onOpen, blockOverfl
         }
     };
 
-    const closeHandler = () => {
+    const closeHandler = (data?: any) => {
         deactivate();
         if (onClose) {
-            return onClose();
+            return onClose(data);
         }
     };
 
