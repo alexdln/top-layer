@@ -9,8 +9,8 @@ import { useDialogRegister } from "./hooks";
 import { ToasterLayer } from "../toaster/toaster-layer";
 
 export interface DialogProps extends React.HTMLAttributes<HTMLDialogElement> {
-    onOpen?: DialogConfiguration<any>["open"];
-    onClose?: DialogConfiguration<any>["close"];
+    onOpen?: DialogConfiguration["open"];
+    onClose?: DialogConfiguration["close"];
     id: string;
     blockOverflow?: boolean;
     children: React.ReactNode;

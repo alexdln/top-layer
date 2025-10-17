@@ -1,13 +1,20 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type RegisterArgs = { id: string; open: (data: any) => void; close: () => void };
+export type RegisterArgs<OpenData = unknown, CloseData = unknown> = {
+    id: string;
+    open: (data?: OpenData) => void;
+    close: (data?: CloseData) => void;
+};
 
-export type RegisterDialog = ({ id, open, close }: RegisterArgs) => void;
+export type RegisterDialog<OpenData = unknown, CloseData = unknown> = ({
+    id,
+    open,
+    close,
+}: RegisterArgs<OpenData, CloseData>) => void;
 
-export type DialogConfiguration<Data = unknown> = {
+export type DialogConfiguration<OpenData = unknown, CloseData = unknown> = {
     id: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    open?: (data: Data) => Promise<any> | any;
-    close?: () => void | Promise<void>;
+    open?: (data?: OpenData) => Promise<any> | any;
+    close?: (data?: CloseData) => void | Promise<void>;
     blockOverflow?: boolean;
 };
 

@@ -34,12 +34,12 @@ export const DialogsProvider: React.FC<DialogsProviderProps> = ({ children, dial
         delete dialogsStore.current[id];
     }, []);
 
-    const close = useCallback((id: string) => {
+    const close = useCallback((id: string, data?: any) => {
         const dialog = dialogsStore.current[id];
         if (dialog) {
             dialog.state.opened = false;
             dialog.node.close();
-            dialog.configuration.close?.();
+            dialog.configuration.close?.(data);
         }
         if (
             Object.values(dialogsStore.current).every(
@@ -83,9 +83,9 @@ export const DialogsProvider: React.FC<DialogsProviderProps> = ({ children, dial
     }, [open]);
 
     useEffect(() => {
-        const handler = (event: CustomEvent<{ id: string }>) => {
-            const { id } = event.detail;
-            close(id);
+        const handler = (event: CustomEvent<{ id: string; data: any }>) => {
+            const { id, data } = event.detail;
+            close(id, data);
         };
         document.addEventListener(CLOSE_DIALOG_EVENT, handler as EventListener);
 
