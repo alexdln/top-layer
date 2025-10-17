@@ -1,39 +1,47 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useContext } from "react";
 
-import { DialogContext, RegisterDialogContext } from "./contexts";
-import { DialogConfiguration } from "./types";
+import {
+    DialogContext,
+    RegisterDialogContext,
+    type DialogContextType,
+    type RegisterDialogContextType,
+} from "./contexts";
+import { type DialogConfiguration } from "./types";
 
-export const useDialogs = () => {
-    const dialog = useContext(DialogContext);
+export const useDialogs = <OpenData = any, CloseData = any>() => {
+    const dialog = useContext<DialogContextType<OpenData, CloseData>>(DialogContext);
 
     return {
-        openDialog: (id: string, data: unknown) => {
+        openDialog: (id: string, data?: OpenData) => {
             dialog.open(id, data);
         },
-        closeDialog: (id: string) => {
-            dialog.close(id);
+        closeDialog: (id: string, data?: CloseData) => {
+            dialog.close(id, data);
         },
     };
 };
 
-export const useDialogAction = (id: string) => {
-    const dialog = useContext(DialogContext);
+export const useDialogAction = <OpenData = any, CloseData = any>(id: string) => {
+    const dialog = useContext<DialogContextType<OpenData, CloseData>>(DialogContext);
 
     return {
-        openDialog: (data: unknown) => {
+        openDialog: (data?: OpenData) => {
             dialog.open(id, data);
         },
-        closeDialog: () => {
-            dialog.close(id);
+        closeDialog: (data?: CloseData) => {
+            dialog.close(id, data);
         },
     };
 };
 
-export const useDialogRegister = <Data = unknown>(configuration: DialogConfiguration<Data>) => {
-    const dialogRegister = useContext(RegisterDialogContext);
-    const dialog = useContext(DialogContext);
+export const useDialogRegister = <OpenData = any, CloseData = any>(
+    configuration: DialogConfiguration<OpenData, CloseData>,
+) => {
+    const dialogRegister = useContext<RegisterDialogContextType<OpenData, CloseData>>(RegisterDialogContext);
+    const dialog = useContext<DialogContextType<OpenData, CloseData>>(DialogContext);
 
     return {
         register: (node: HTMLDialogElement | null) => {
@@ -48,11 +56,11 @@ export const useDialogRegister = <Data = unknown>(configuration: DialogConfigura
         remove: (id: string) => {
             dialogRegister.remove(id);
         },
-        openDialog: (data: Data) => {
+        openDialog: (data?: OpenData) => {
             dialog.open(configuration.id, data);
         },
-        closeDialog: () => {
-            dialog.close(configuration.id);
+        closeDialog: (data?: CloseData) => {
+            dialog.close(configuration.id, data);
         },
     };
 };

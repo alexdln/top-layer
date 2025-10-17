@@ -49,8 +49,7 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 export default RootLayout;
 ```
 
-> [!NOTE]
-> `TopLayerProvider` never causes rerenders, so it is recommended to install it over the entire application.
+> [!NOTE] > `TopLayerProvider` never causes rerenders, so it is recommended to install it over the entire application.
 
 ## Usage
 
@@ -75,29 +74,43 @@ import { ToastAction } from "../toast-action";
 import "./alert-dialog.scss";
 
 export const AlertDialog: React.FC = () => {
-    const [state, setState] = useState<string | null>(null);
-    const { closeDialog } = useDialogAction("alert");
+  const [state, setState] = useState<string | null>(null);
+  const { closeDialog } = useDialogAction("alert");
 
-    return (
-        <Dialog
-            className="items-center bg-transparent w-full h-full p-16 m-0 max-w-none max-h-none border-0 open:grid"
-            id="alert"
-            blockOverflow
-            onOpen={setState}
-            onClose={() => setState(null)}
-        >
-            <div
-                className="fixed left-0 top-0 w-full h-full bg-slate-950/20 backdrop-blur-[2px]"
-                onClick={closeDialog}
-            />
-            <div className="relative m-auto p-16 bg-slate-900 rounded-2xl w-full max-w-5xl z-10">
-                <p>{state}</p>
-                <ToastAction type="neutral" message="Root Toast" title="Show Toast in Root" />
-                <ToastAction type="neutral" message="Dialog Toast" layers={['alert']} title="Show Toast in Dialog" />
-                <ToastAction type="neutral" message="Both Toast" layers={['root', 'alert']} title="Show Toast in Both" />
-            </div>
-        </Dialog>
-    );
+  return (
+    <Dialog
+      className="items-center bg-transparent w-full h-full p-16 m-0 max-w-none max-h-none border-0 open:grid"
+      id="alert"
+      blockOverflow
+      onOpen={setState}
+      onClose={() => setState(null)}
+    >
+      <div
+        className="fixed left-0 top-0 w-full h-full bg-slate-950/20 backdrop-blur-[2px]"
+        onClick={closeDialog}
+      />
+      <div className="relative m-auto p-16 bg-slate-900 rounded-2xl w-full max-w-5xl z-10">
+        <p>{state}</p>
+        <ToastAction
+          type="neutral"
+          message="Root Toast"
+          title="Show Toast in Root"
+        />
+        <ToastAction
+          type="neutral"
+          message="Dialog Toast"
+          layers={["alert"]}
+          title="Show Toast in Dialog"
+        />
+        <ToastAction
+          type="neutral"
+          message="Both Toast"
+          layers={["root", "alert"]}
+          title="Show Toast in Both"
+        />
+      </div>
+    </Dialog>
+  );
 };
 ```
 
@@ -112,68 +125,79 @@ import { ToastAction } from "../toast-action";
 import "./alert-dialog.scss";
 
 export const AlertDialog: React.FC = () => {
-    const [state, setState] = useState<string | null>(null);
-    const { closeDialog } = useDialogAction("alert");
+  const [state, setState] = useState<string | null>(null);
+  const { closeDialog } = useDialogAction("alert");
 
-    return (
-        <Dialog
-            className="alert-dialog"
-            id="alert"
-            blockOverflow
-            onOpen={setState}
-            onClose={() => setState(null)}
-        >
-            <div
-                className="alert-dialog-backdrop"
-                onClick={closeDialog}
-            />
-            <div className="alert-dialog-content">
-                <p>{state}</p>
-                <ToastAction type="neutral" message="Root Toast" title="Show Toast in Root" />
-                <ToastAction type="neutral" message="Dialog Toast" layers={['alert']} title="Show Toast in Dialog" />
-                <ToastAction type="neutral" message="Both Toast" layers={['root', 'alert']} title="Show Toast in Both" />
-            </div>
-        </Dialog>
-    );
+  return (
+    <Dialog
+      className="alert-dialog"
+      id="alert"
+      blockOverflow
+      onOpen={setState}
+      onClose={() => setState(null)}
+    >
+      <div className="alert-dialog-backdrop" onClick={closeDialog} />
+      <div className="alert-dialog-content">
+        <p>{state}</p>
+        <ToastAction
+          type="neutral"
+          message="Root Toast"
+          title="Show Toast in Root"
+        />
+        <ToastAction
+          type="neutral"
+          message="Dialog Toast"
+          layers={["alert"]}
+          title="Show Toast in Dialog"
+        />
+        <ToastAction
+          type="neutral"
+          message="Both Toast"
+          layers={["root", "alert"]}
+          title="Show Toast in Both"
+        />
+      </div>
+    </Dialog>
+  );
 };
 ```
 
 ```scss filename="components/alert-dialog/alert-dialog.scss" switcher tab="css"
 .alert-dialog {
-    align-items: center;
-    background-color: transparent;
-    width: 100%;
-    height: 100%;
-    padding: 16px;
-    margin: 0;
-    max-width: none;
-    max-height: none;
-    border: 0;
+  align-items: center;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  margin: 0;
+  max-width: none;
+  max-height: none;
+  border: 0;
 
-    &[open] {
-        display: grid;
-    }
+  &[open] {
+    display: grid;
+  }
 }
 
 .alert-dialog-backdrop {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(21, 21, 21, 0.2);
-    backdrop-filter: blur(2px);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(21, 21, 21, 0.2);
+  backdrop-filter: blur(2px);
 }
 
 .alert-dialog-content {
-    margin: auto;
-    position: relative;
-    padding: 16px;
-    background-color: #151515;
-    border-radius: 24px;
-    width: 100%;
-    max-width: 560px;
-    z-index: 10;
+  margin: auto;
+  position: relative;
+  padding: 16px;
+  background-color: #151515;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 560px;
+  z-index: 10;
 }
 ```
 
@@ -191,7 +215,7 @@ const { openDialog } = useDialogs();
 </button>;
 ```
 
-The first argument must be the `id` of the dialog, and the second - the data that will be passed to the dialog handlers (*Read more in the section [`useDialogs`](#usedialogs)*)
+The first argument must be the `id` of the dialog, and the second - the data that will be passed to the dialog handlers (_Read more in the section [`useDialogs`](#usedialogs)_)
 
 > [!NOTE]
 > It is recommended to open and close dialogs through special hooks. However, in some cases you may need to use them outside the React runtime (for example inside `redux saga`). For these purposes, you can use the standalone methods [`openDialog`](#opendialog) and [`closeDialog`](#closedialog).
@@ -234,7 +258,7 @@ export const Toast: React.FC<ToastProps> = ({
 }) => {
   useEffect(() => {
     const timer = setTimeout(closeHandler, 3000);
-    
+
     return () => clearTimeout(timer);
   }, [closeHandler]);
 
@@ -248,7 +272,7 @@ export const Toast: React.FC<ToastProps> = ({
     >
       {message}
     </div>
-  )
+  );
 };
 ```
 
@@ -279,18 +303,15 @@ export const Toast: React.FC<ToastProps> = ({
 }) => {
   useEffect(() => {
     const timer = setTimeout(closeHandler, 3000);
-    
+
     return () => clearTimeout(timer);
   }, [closeHandler]);
 
   return (
-    <div
-      className={`toast ${TYPES[type]}`}
-      onClick={closeHandler}
-    >
+    <div className={`toast ${TYPES[type]}`} onClick={closeHandler}>
       {message}
     </div>
-  )
+  );
 };
 ```
 
@@ -336,10 +357,14 @@ import { useToasts } from "top-layer/toaster";
 // ...
 const { showToast } = useToasts();
 // ...
-showToast("data-loader", {
-  message: "Success Test",
-  type: "success",
-}, ['root']);
+showToast(
+  "data-loader",
+  {
+    message: "Success Test",
+    type: "success",
+  },
+  ["root"]
+);
 ```
 
 > [!NOTE]
@@ -475,7 +500,7 @@ import { openDialog } from "top-layer/dialog";
 // ...
 <button onClick={() => openDialog("alert", "Some Alert Message")}>
   Show Alert
-</button>
+</button>;
 ```
 
 **Arguments**
@@ -491,9 +516,7 @@ Works the same as `closeDialog` returned from [`useDialogs`](#usedialogs)
 ```tsx filename="components/block.tsx"
 import { closeDialog } from "top-layer/dialog";
 // ...
-<button onClick={() => closeDialog("modal")}>
-  Close Modal
-</button>
+<button onClick={() => closeDialog("modal")}>Close Modal</button>;
 ```
 
 **Arguments**
@@ -578,9 +601,13 @@ Works the same as `showToast` returned from [`useToasts`](#usetoasts)
 ```tsx filename="components/block.tsx"
 import { showToast } from "top-layer/toaster";
 // ...
-<button onClick={() => showToast("invalid-arg", { message: "Invalid argument", type: 'error' })}>
+<button
+  onClick={() =>
+    showToast("invalid-arg", { message: "Invalid argument", type: "error" })
+  }
+>
   Show Toast
-</button>
+</button>;
 ```
 
 **Arguments**
@@ -598,9 +625,7 @@ Works the same as `hideToast` returned from [`useToasts`](#usetoasts)
 ```tsx filename="components/block.tsx"
 import { hideToast } from "top-layer/toaster";
 // ...
-<button onClick={() => hideToast("invalid-arg")}>
-  Hide Toast
-</button>
+<button onClick={() => hideToast("invalid-arg")}>Hide Toast</button>;
 ```
 
 **Arguments**
