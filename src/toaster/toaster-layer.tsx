@@ -6,13 +6,13 @@ import { type Toast } from "./types";
 import { useToasterRegister } from "./hooks";
 
 export interface ToasterLayerProps {
-    id?: string;
+    layerId?: string;
 }
 
-export const ToasterLayer: React.FC<ToasterLayerProps> = ({ id = "root" }) => {
+export const ToasterLayer: React.FC<ToasterLayerProps> = ({ layerId = "root" }) => {
     const [toasts, setToasts] = useState<Toast[]>([]);
     const { register } = useToasterRegister({
-        id,
+        id: layerId,
         showToast(id, toast) {
             setToasts((prev) => [...prev, { id, toast }]);
         },

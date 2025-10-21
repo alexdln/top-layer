@@ -84,6 +84,7 @@
     "url": "https://github.com/vordgi/"
   },
   "devDependencies": {
+    "@types/node": "24.9.1",
     "@types/react": "19.0.2",
     "@types/react-dom": "19.0.2",
     "eslint": "9.13.0",

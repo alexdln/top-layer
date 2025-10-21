@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext } from "react";
-import { DialogConfiguration } from "./types";
+
+import { type DialogConfiguration } from "./types";
 
 export type DialogContextType<OpenData = any, CloseData = any> = {
     open(id: string, data?: OpenData): void;
@@ -13,9 +14,14 @@ export type RegisterDialogContextType<OpenData = any, CloseData = any> = {
     remove(id: string): void;
 };
 
+export type DialogWrapperContextType = {
+    id?: string | null;
+};
+
 export const DialogContext = createContext<DialogContextType>({ open: () => {}, close: () => {} });
 export const RegisterDialogContext = createContext<RegisterDialogContextType>({
     register: () => {},
     unregister: () => {},
     remove: () => {},
 });
+export const DialogWrapperContext = createContext<DialogWrapperContextType>({});

@@ -22,10 +22,10 @@ export const useToastAction = (id: string) => {
     const toaster = useContext(ToasterLayerContext);
 
     return {
-        openToaster: (data: unknown, layers: string[]) => {
+        showToast: (data: unknown, layers?: string[]) => {
             toaster.show(id, data, layers);
         },
-        closeToaster: () => {
+        hideToast: () => {
             toaster.hide(id);
         },
     };

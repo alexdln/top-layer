@@ -103,7 +103,7 @@ export const ToasterProvider: React.FC<ToasterProviderProps> = ({ children, toas
         <RegisterToasterLayerContext.Provider value={{ register, unregister, activate, deactivate }}>
             <ToasterLayerContext.Provider value={{ hide, show }}>
                 {children}
-                <ToasterLayer id="root" />
+                <ToasterLayer layerId="root" />
             </ToasterLayerContext.Provider>
         </RegisterToasterLayerContext.Provider>
     );
