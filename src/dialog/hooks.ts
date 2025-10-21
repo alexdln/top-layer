@@ -5,34 +5,62 @@ import { useContext } from "react";
 
 import {
     DialogContext,
+    DialogWrapperContext,
+    DialogWrapperContextType,
     RegisterDialogContext,
     type DialogContextType,
     type RegisterDialogContextType,
 } from "./contexts";
 import { type DialogConfiguration } from "./types";
 
+export const useCurrentDialogId = () => {
+    const { id: currentDialogId } = useContext<DialogWrapperContextType>(DialogWrapperContext);
+    return currentDialogId;
+};
+
 export const useDialogs = <OpenData = any, CloseData = any>() => {
+    const currentDialogId = useCurrentDialogId();
     const dialog = useContext<DialogContextType<OpenData, CloseData>>(DialogContext);
 
     return {
-        openDialog: (id: string, data?: OpenData) => {
-            dialog.open(id, data);
+        openDialog: (id?: string | null, data?: OpenData) => {
+            const dialogId = id || currentDialogId;
+            if (!dialogId) {
+                console.error("Cannot detect dialog. Please use this hook inside a dialog or provide a dialog ID.");
+                return;
+            }
+            dialog.open(dialogId, data);
         },
-        closeDialog: (id: string, data?: CloseData) => {
-            dialog.close(id, data);
+        closeDialog: (id?: string | null, data?: CloseData) => {
+            const dialogId = id || currentDialogId;
+            if (!dialogId) {
+                console.error("Cannot detect dialog. Please use this hook inside a dialog or provide a dialog ID.");
+                return;
+            }
+            dialog.close(dialogId, data);
         },
     };
 };
 
-export const useDialogAction = <OpenData = any, CloseData = any>(id: string) => {
+export const useDialogAction = <OpenData = any, CloseData = any>(id?: string | null) => {
+    const currentDialogId = useCurrentDialogId();
+    const dialogId = id || currentDialogId;
     const dialog = useContext<DialogContextType<OpenData, CloseData>>(DialogContext);
 
     return {
         openDialog: (data?: OpenData) => {
-            dialog.open(id, data);
+            if (!dialogId) {
+                console.error("Cannot detect dialog. Please use this hook inside a dialog or provide a dialog ID.");
+                return;
+            }
+            dialog.open(dialogId, data);
         },
         closeDialog: (data?: CloseData) => {
-            dialog.close(id, data);
+            if (!dialogId) {
+                console.error("Cannot detect dialog. Please use this hook inside a dialog or provide a dialog ID.");
+                return;
+            }
+            dialog.close(dialogId, data);
         },
     };
 };
@@ -53,8 +81,8 @@ export const useDialogRegister = <OpenData = any, CloseData = any>(
                 dialogRegister.unregister(node);
             };
         },
-        remove: (id: string) => {
-            dialogRegister.remove(id);
+        remove: () => {
+            dialogRegister.remove(configuration.id);
         },
         openDialog: (data?: OpenData) => {
             dialog.open(configuration.id, data);
