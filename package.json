@@ -1,6 +1,6 @@
 {
   "name": "top-layer",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Library for working with modals and notifications in a separate isolated layer without application rerenders.",
   "files": [
     "dist",
@@ -84,6 +84,7 @@
     "url": "https://github.com/vordgi/"
   },
   "devDependencies": {
+    "@types/node": "24.9.1",
     "@types/react": "19.0.2",
     "@types/react-dom": "19.0.2",
     "eslint": "9.13.0",

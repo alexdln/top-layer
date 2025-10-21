@@ -4,7 +4,7 @@
 import React, { useCallback, useEffect, useRef } from "react";
 
 import { type DialogConfiguration, type DialogInfo } from "./types";
-import { DialogContext, RegisterDialogContext } from "./contexts";
+import { DialogContext, DialogWrapperContext, RegisterDialogContext } from "./contexts";
 import { OPEN_DIALOG_EVENT, CLOSE_DIALOG_EVENT } from "./constants";
 
 export type DialogsProviderProps = {
@@ -96,7 +96,11 @@ export const DialogsProvider: React.FC<DialogsProviderProps> = ({ children, dial
         <RegisterDialogContext.Provider value={{ register, unregister, remove }}>
             <DialogContext.Provider value={{ open, close }}>
                 {children}
-                {dialogs?.map(({ dialog: Dialog, id }) => <Dialog key={id} />)}
+                {dialogs?.map(({ dialog: Dialog, id }) => (
+                    <DialogWrapperContext.Provider key={id} value={{ id }}>
+                        <Dialog />
+                    </DialogWrapperContext.Provider>
+                ))}
             </DialogContext.Provider>
         </RegisterDialogContext.Provider>
     );
