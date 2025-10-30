@@ -1,21 +1,12 @@
 {
   "name": "top-layer",
-  "version": "1.3.0",
-  "description": "Library for working with modals and notifications in a separate isolated layer without application rerenders.",
+  "version": "2.0.0",
+  "description": "Library for working with native HTML dialogs and upper layers (f.e. notifications) without unnecessary application rerenders.",
   "files": [
     "dist",
     "index.d.ts",
-    "dialog/index.d.ts",
-    "dialog/hooks.d.ts",
-    "dialog/utils.d.ts",
-    "dialog/constants.d.ts",
-    "dialog/types.d.ts",
-    "dialog/dialog.d.ts",
-    "toaster/index.d.ts",
-    "toaster/hooks.d.ts",
-    "toaster/utils.d.ts",
-    "toaster/constants.d.ts",
-    "toaster/types.d.ts"
+    "dialogs",
+    "upper-layers"
   ],
   "main": "./dist/index.js",
   "typings": "./index.d.ts",
@@ -29,71 +20,67 @@
       "types": "./index.d.ts",
       "default": "./dist/index.js"
     },
-    "./dialog": {
-      "types": "./dialog/index.d.ts",
-      "default": "./dist/dialog/index.js"
+    "./upper-layers": {
+      "types": "./upper-layers/index.d.ts",
+      "default": "./dist/upper-layers/index.js"
     },
-    "./toaster": {
-      "types": "./toaster/index.d.ts",
-      "default": "./dist/toaster/index.js"
+    "./upper-layers/hooks": {
+      "types": "./upper-layers/hooks.d.ts",
+      "default": "./dist/upper-layers/hooks.js"
     },
-    "./dialog/hooks": {
-      "types": "./dialog/hooks.d.ts",
-      "default": "./dist/dialog/hooks.js"
+    "./upper-layers/utils": {
+      "types": "./upper-layers/utils.d.ts",
+      "default": "./dist/upper-layers/utils.js"
     },
-    "./dialog/utils": {
-      "types": "./dialog/utils.d.ts",
-      "default": "./dist/dialog/utils.js"
+    "./upper-layers/constants": {
+      "types": "./upper-layers/constants.d.ts",
+      "default": "./dist/upper-layers/constants.js"
     },
-    "./dialog/constants": {
-      "types": "./dialog/constants.d.ts",
-      "default": "./dist/dialog/constants.js"
+    "./upper-layers/types": {
+      "types": "./upper-layers/types.d.ts",
+      "default": "./dist/upper-layers/types.js"
     },
-    "./dialog/dialog": {
-      "types": "./dialog/dialog.d.ts",
-      "default": "./dist/dialog/dialog.js"
+    "./dialogs": {
+      "types": "./dialogs/index.d.ts",
+      "default": "./dist/dialogs/index.js"
     },
-    "./toaster/hooks": {
-      "types": "./toaster/hooks.d.ts",
-      "default": "./dist/toaster/hooks.js"
+    "./dialogs/hooks": {
+      "types": "./dialogs/hooks.d.ts",
+      "default": "./dist/dialogs/hooks.js"
     },
-    "./toaster/utils": {
-      "types": "./toaster/utils.d.ts",
-      "default": "./dist/toaster/utils.js"
+    "./dialogs/utils": {
+      "types": "./dialogs/utils.d.ts",
+      "default": "./dist/dialogs/utils.js"
     },
-    "./toaster/constants": {
-      "types": "./toaster/constants.d.ts",
-      "default": "./dist/toaster/constants.js"
+    "./dialogs/constants": {
+      "types": "./dialogs/constants.d.ts",
+      "default": "./dist/dialogs/constants.js"
     },
-    "./dialog/types": {
-      "types": "./dialog/types.d.ts",
-      "default": "./dist/dialog/types.js"
-    },
-    "./toaster/types": {
-      "types": "./toaster/types.d.ts",
-      "default": "./dist/toaster/types.js"
+    "./dialogs/types": {
+      "types": "./dialogs/types.d.ts",
+      "default": "./dist/dialogs/types.js"
     }
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/vordgi/top-layer.git"
+    "url": "git://github.com/alexdln/top-layer.git"
   },
   "author": {
-    "name": "Savelyev Alexander",
-    "email": "vordgi@mail.com",
-    "url": "https://github.com/vordgi/"
+    "name": "Alex Savelyev",
+    "email": "dev@alexdln.com",
+    "url": "https://github.com/alexdln/"
   },
   "devDependencies": {
     "@types/node": "24.9.1",
-    "@types/react": "19.0.2",
-    "@types/react-dom": "19.0.2",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
     "eslint": "9.13.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-prettier": "5.2.1",
     "husky": "9.1.6",
     "prettier": "3.3.3",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
     "typescript": "5.8.2",
     "typescript-eslint": "8.11.0"
   },
