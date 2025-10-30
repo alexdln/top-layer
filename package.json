@@ -1,6 +1,6 @@
 {
   "name": "top-layer",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Library for working with native HTML dialogs and upper layers (f.e. notifications) without unnecessary application rerenders.",
   "files": [
     "dist",

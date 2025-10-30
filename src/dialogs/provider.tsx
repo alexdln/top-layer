@@ -66,7 +66,7 @@ export const DialogsProvider: React.FC<DialogsProviderProps> = ({ children, dial
         }
         dialogsStore.current[id].listeners.add(callback);
         return () => {
-            dialogsStore.current[id].listeners.delete(callback);
+            dialogsStore.current[id]?.listeners.delete(callback);
         };
     }, []);
 
@@ -74,7 +74,7 @@ export const DialogsProvider: React.FC<DialogsProviderProps> = ({ children, dial
         if (!dialogsStore.current[id]) {
             throw new Error(`Dialog with id ${id} not found`);
         }
-        dialogsStore.current[id].listeners.delete(callback);
+        dialogsStore.current[id]?.listeners.delete(callback);
     }, []);
 
     const open = useCallback((id: string, data: unknown) => {
