@@ -50,7 +50,8 @@ const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 export default RootLayout;
 ```
 
-> [!NOTE] > `TopLayerProvider` never causes rerenders, so it is recommended to use it over the entire application.
+> [!NOTE]
+> `TopLayerProvider` never causes rerenders, so it is recommended to use it over the entire application.
 
 ## Usage
 

@@ -151,6 +151,8 @@ export const DialogsProvider: React.FC<DialogsProviderProps> = ({ children, dial
                             background: "none",
                             maxWidth: "none",
                             maxHeight: "none",
+                            border: "none",
+                            padding: "unset",
                         }}
                         {...props}
                     >
