@@ -3,6 +3,9 @@
 
 # top-layer
 
+> [!NOTE]
+> The package has been moved to https://github.com/alexdln/contection and improved. Please see the updated version.
+
 <!---robin-->
 
 Read the documentation at [nimpl.dev/docs/top-layer](https://nimpl.dev/docs/top-layer)
